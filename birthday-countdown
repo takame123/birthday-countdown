@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日倒計時</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 20%;
+        }
+        .countdown {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .birthday-gif {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>倒數計時到24點</h1>
+        <div class="countdown" id="countdown">計算中...</div>
+        <div class="birthday-gif" id="birthdayGif">
+            <iframe src="https://giphy.com/embed/Qvns6NmhC1MBLKGbL1" width="480" height="480" style="border: none;" frameborder="0" class="giphy-embed" allowfullscreen></iframe>
+            <p><a href="https://giphy.com/gifs/bill-murray-happy-birthday-to-you-Qvns6NmhC1MBLKGbL1">via GIPHY</a></p>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const midnight = new Date();
+            midnight.setHours(24, 0, 0, 0); // 設置到今天的24:00
+
+            const diff = midnight - now;
+            if (diff <= 0) {
+                alert("生日快樂!!!");
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("birthdayGif").style.display = "block";
+                clearInterval(interval);
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerText = 
+                `${hours}小時 ${minutes}分鐘 ${seconds}秒`;
+        }
+
+        // 每秒更新一次倒計時
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
